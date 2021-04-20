@@ -1,0 +1,17 @@
+.page {
+	background-color: #282c34;
+	color: white;
+}
+
+ul {
+	text-align: left;
+}
+
+li,
+a {
+	margin-bottom: 20px;
+	color: #61dafb;
+	text-decoration: underline;
+	cursor: pointer;
+	display: inline-block;
+}

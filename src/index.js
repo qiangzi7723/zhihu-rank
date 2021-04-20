@@ -63,17 +63,22 @@ const writeToArchive = async (data) => {
 	const index = await _dir(dir);
 
 	let content = `
-    ## 排行榜趋势
+## 排行榜趋势 记录时间：${dayjs().format("YYYY-MM-DD HH:mm:ss")}
   `;
 
 	data.forEach((item) => {
 		const sub = `
-      ${item.index + 1}. ${item.title} ${item.hot}
+  ${item.index + 1}. ${item.title} ${item.hot}
     `;
 		content += sub;
 	});
 
 	await fse.writeFile(`${dir}/${index}.md`, content);
+
+	const readme = `
+基于 Github Action 实现的自动化程序
+`;
+	await fse.writeFile(`README.md`, readme + content);
 };
 
 const _dir = async (dir) => {

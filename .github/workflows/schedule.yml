@@ -22,16 +22,13 @@ jobs:
           node-version: 15.12.0
 
       - name: Npm Install
-        run: |
-          npm install
-      
+        run: npm install
+
       - name: Node Start
-          run:
-            node node/app.js
+        run: node node/app.js
 
       - name: React Build
-          run:
-            npm run build
+        run: npm run build
 
       - name: Github Push
         run: |

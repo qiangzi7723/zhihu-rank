@@ -11,12 +11,20 @@ jobs:
       - name: Checkout
         uses: actions/checkout@master
 
-      - name: use Node.js
+      - name: Use node.js
         uses: actions/setup-node@v1
         with:
           node-version: 15.12.0
 
-      - name: Install and Build
+      - name: Install and Run
         run: |
           npm install
           node src/index.js
+
+      - name: Release
+        uses: softprops/action-gh-release@v1
+        if: startsWith(github.ref, 'refs/tags/')
+        with:
+          draft: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}

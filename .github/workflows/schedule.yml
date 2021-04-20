@@ -23,7 +23,7 @@ jobs:
       - name: Install and Run
         run: |
           npm install
-          node src/index.js
+          node node/index.js
 
       - name: Github Push
         run: |

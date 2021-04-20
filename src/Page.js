@@ -1,5 +1,5 @@
 import React from "react";
-import data from "../raws/2021-04-20/1.json";
+import data from "./assests/raws/2021-04-20/1.json";
 
 class Page extends React.Component {
 	constructor() {
@@ -10,7 +10,18 @@ class Page extends React.Component {
 	}
 
 	render() {
-		return <div>Page</div>;
+		return (
+			<div className="page">
+				<span style={{ color: "red" }}>
+					更新时间：{this.state.data.description.time}
+				</span>
+				<ul>
+					{this.state.data.data.map((item) => (
+						<li>{JSON.stringify(item)}</li>
+					))}
+				</ul>
+			</div>
+		);
 	}
 }
 

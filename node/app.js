@@ -41,7 +41,7 @@ const convert = async (source) => {
 const wirteToRaw = async (source) => {
 	const today = dayjs().format("YYYY-MM-DD");
 	let index = 1;
-	const dir = `./raws/${today}/`;
+	const dir = `./src/assests/raws/${today}/`;
 
 	await fse.ensureDir(dir);
 
@@ -59,7 +59,7 @@ const wirteToRaw = async (source) => {
 
 const writeToArchive = async (data) => {
 	const today = dayjs().format("YYYY-MM-DD");
-	const dir = `./archives/${today}/`;
+	const dir = `./src/assests/archives/${today}/`;
 	const index = await _dir(dir);
 
 	let content = `

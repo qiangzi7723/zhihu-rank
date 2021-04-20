@@ -30,6 +30,14 @@ jobs:
       - name: React Build
         run: npm run build
 
+      - name: Github Page
+        uses: JamesIves/github-pages-deploy-action@4.1.1
+        with:
+          BRANCH: gh-pages
+          FOLDER: build
+        env:
+          ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+
       - name: Github Push
         run: |
           git config --global user.email "qq1092672755@gmail.com"

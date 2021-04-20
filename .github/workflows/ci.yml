@@ -30,6 +30,8 @@ jobs:
 
       - name: Github Push
         run: |
+          git config --global user.email "qq1092672755@gmail.com"
+          git config --global user.name "强子"
           git add .
           git commit -m "提交"
           git push origin master

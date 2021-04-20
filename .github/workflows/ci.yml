@@ -2,7 +2,7 @@ name: GitHub Actions
 
 on:
   schedule:
-    - cron: "0 0/5 * * * ? *"
+    - cron: "0 0/5 * * *"
 
 jobs:
   build-and-deploy:

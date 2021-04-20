@@ -1,10 +1,12 @@
 const axios = require("axios");
 const fs = require("fs");
+const fse = require("fs-extra");
+const dayjs = require("dayjs");
 
 // 拉取数据
 const trackData = async () => {
 	const response = await axios.get(
-		"https://www.zhihu.com/api/v3/feed/topstory/hot-lists/total?limit=1&mobile=true"
+		"https://www.zhihu.com/api/v3/feed/topstory/hot-lists/total?limit=50&mobile=true"
 	);
 	const {
 		data: { data: data },
@@ -37,18 +39,59 @@ const convert = async (source) => {
 
 // 记录原始数据
 const wirteToRaw = async (source) => {
-	fs.writeFile("./raws/index.json", JSON.stringify(source), (err) => {
-		if (err) {
-			return console.error(err);
-		}
-		console.log("数据写入成功！");
+	const today = dayjs().format("YYYY-MM-DD");
+	let index = 1;
+	const dir = `./raws/${today}/`;
+
+	await fse.ensureDir(dir);
+
+	const result = await fse.readdir(dir);
+	if (result && result.length != 0) index = result.length + 1;
+
+	const data = {
+		data: source,
+		description: {
+			time: dayjs().format("YYYY-MM-DD HH:mm:ss"),
+		},
+	};
+	await fse.writeFile(`${dir}/${index}.json`, JSON.stringify(data));
+};
+
+const writeToArchive = async (data) => {
+	const today = dayjs().format("YYYY-MM-DD");
+	const dir = `./archives/${today}/`;
+	const index = await _dir(dir);
+
+	let content = `
+    ## 排行榜趋势
+  `;
+
+	data.forEach((item) => {
+		const sub = `
+      ${item.index + 1}. ${item.title} ${item.hot}
+    `;
+		content += sub;
 	});
+
+	await fse.writeFile(`${dir}/${index}.md`, content);
+};
+
+const _dir = async (dir) => {
+	const today = dayjs().format("YYYY-MM-DD");
+	let index = 1;
+
+	await fse.ensureDir(dir);
+
+	const result = await fse.readdir(dir);
+	if (result && result.length != 0) index = result.length + 1;
+	return index;
 };
 
 const init = async () => {
 	const source = await trackData();
 	const data = await convert(source);
 	await wirteToRaw(source);
+	await writeToArchive(data);
 };
 
 init();

@@ -43,4 +43,4 @@ jobs:
           git config --global user.name "强子"
           git add .
           git commit -m "自动化提交"
-          git push origin master
+          git push origin master -f

@@ -1,11 +1,11 @@
 import React from "react";
 import "./home.css";
-import data from "../../assests/raws/2021-04-20/1.json";
+import data from "../../assests/raws/index.json";
 import { Link } from "react-router-dom";
 
-class Page extends React.Component {
-	constructor() {
-		super();
+class Home extends React.Component {
+	constructor(props) {
+		super(props);
 		this.state = {
 			data,
 		};
@@ -17,17 +17,18 @@ class Page extends React.Component {
 
 	render() {
 		return (
-			<div className="page">
+			<div className="home">
 				<span style={{ color: "red" }}>
 					更新时间：{this.state.data.description.time}
 				</span>
 				<ul>
 					{this.state.data.data.map((item, index) => (
-						<div>
+						<div key={item.target.id}>
 							<li onClick={this.handleClick.bind(this, item)}>
 								<Link
 									to={{
 										pathname: "/report",
+										state: item,
 									}}
 								>
 									{index + 1}. {item.target.title}
@@ -42,4 +43,4 @@ class Page extends React.Component {
 	}
 }
 
-export default Page;
+export default Home;

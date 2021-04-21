@@ -4,7 +4,7 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { HashRouter as Router, Switch, Route } from "react-router-dom";
-import About from "./page/about/about.js";
+import Report from "./page/report/report.js";
 
 ReactDOM.render(
 	<Router>
@@ -12,8 +12,8 @@ ReactDOM.render(
 			<Route path="/home">
 				<App />
 			</Route>
-			<Route path="/about">
-				<About />
+			<Route path="/report">
+				<Report />
 			</Route>
 		</Switch>
 	</Router>,

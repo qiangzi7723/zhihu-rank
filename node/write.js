@@ -37,6 +37,8 @@ class Write {
 
 		const readme = `
 基于 Github Action 实现的自动化程序
+
+自动抓取某网站排行榜，并实现页面更新。纯前端实现，无额外部署后端服务。站点地址：https://qiangzi7723.github.io/zhihu-rank
 `;
 
 		const index = await this._getIndex(dir);

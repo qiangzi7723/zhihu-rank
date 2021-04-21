@@ -2,6 +2,7 @@ import React from "react";
 import { withRouter } from "react-router-dom";
 import data from "../../assests/raws/aggregate.json";
 import "./repost.css";
+import { Line } from "@ant-design/charts";
 
 class Report extends React.Component {
 	constructor(props) {
@@ -43,10 +44,30 @@ class Report extends React.Component {
 	}
 
 	render() {
+		const data = this.state.list.map((item) => {
+			const format = {
+				time: item.description.time,
+				hot: item.data.detail_text,
+			};
+			return format;
+		});
+
+		const config = {
+			data,
+			height: 400,
+			xField: "time",
+			yField: "hot",
+			point: {
+				size: 5,
+				shape: "diamond",
+			},
+		};
+
 		return (
 			<div className="report">
 				<p>当前话题：{this.state.item.target.title}</p>
 				<p>当前热度：{this.state.item.detail_text}</p>
+				<Line {...config}></Line>
 				<p>
 					历史数据：
 					{this.state.list.map((item) => (
